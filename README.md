@@ -45,6 +45,11 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
 - **Puertos**: El script expone Portainer en los puertos `9000` (UI web) y `8000` (API interna). Para cambiarlos, edita las opciones `-p` en la sección de `docker run`.
 - **Datos persistentes**: El volumen `portainer_data` se crea automáticamente. Para cambiar la ubicación, ajusta la definición de volumen y la opción `-v`.
 
-## Desinstalación
-
 ¡Listo! Con estos pasos tu servidor quedará preparado para gestionar contenedores Docker a través de Portainer.
+
+## 👨‍💻 Autor
+
+Desarrollado por [Alejandro Robles | Devalex ](http://devalexcode.com)  
+¿Necesitas que lo haga por ti? ¡Estoy para apoyarte! 🤝 https://devalexcode.com/soluciones/instalacion-de-portainer-en-servidor-vps
+
+¿Dudas o sugerencias? ¡Contribuciones bienvenidas!
