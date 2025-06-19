@@ -39,11 +39,14 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
    ```
 
    - El script actualizará el sistema, instalará Docker y sus herramientas, añadirá el usuario al grupo `docker` y desplegará Portainer.
-   - Al finalizar, verás un mensaje indicando la URL de acceso a Portainer:
 
-     ```
-     Portainer instalado y accesible en: http://<IP_DEL_SERVIDOR>:9000
-     ```
+5. **Ingresar a Portainer**
+
+   Al finalizar, verás un mensaje indicando la URL de acceso a Portainer:
+
+   ```bash
+   Portainer instalado y accesible en: http://<IP_DEL_SERVIDOR>:9000
+   ```
 
 ## Personalización
 
