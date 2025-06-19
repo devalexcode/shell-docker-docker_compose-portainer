@@ -34,6 +34,7 @@ sudo systemctl start docker
 # Añadir tu usuario al grupo 'docker'
 sudo usermod -aG docker "$USER"
 echo "Para que los cambios de grupo tengan efecto, cierra sesión y vuelve a iniciarla o ejecuta: newgrp docker"
+newgrp docker
 
 # Instalar el plugin de Docker Compose
 sudo apt-get install -y docker-compose-plugin
