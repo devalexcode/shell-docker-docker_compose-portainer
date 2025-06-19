@@ -18,7 +18,6 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
 
    ```bash
    git clone https://github.com/devalexcode/shell-docker-docker_compose-portainer.git
-   cd shell-docker-docker_compose-portainer
    ```
 
 2. **Ingresar a la carperta del instalador**
