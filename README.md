@@ -1,4 +1,4 @@
-# Instalación Automática de Docker y Portainer
+# Instalación Automática de Docker, Docker Compose y Portainer
 
 Este repositorio proporciona un script Bash (`install.sh`) para instalar y configurar Docker, Docker Compose plugin y Portainer en servidores basados en Ubuntu.
 
