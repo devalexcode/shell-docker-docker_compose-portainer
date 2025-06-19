@@ -21,13 +21,19 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
    cd shell-docker-docker_compose-portainer
    ```
 
-2. **Dar permisos de ejecución al script**
+2. **Ingresar a la carperta del instalador**
+
+   ```bash
+   cd shell-docker-docker_compose-portainer
+   ```
+
+3. **Dar permisos de ejecución al script**
 
    ```bash
    chmod +x install.sh
    ```
 
-3. **Ejecutar el script**
+4. **Ejecutar el script**
 
    ```bash
    ./install.sh
