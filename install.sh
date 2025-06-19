@@ -31,9 +31,8 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
 sudo systemctl enable docker
 sudo systemctl start docker
 
-# Añadir tu usuario al grupo 'docker'
+# Añadir tu usuario al grupo 'docker' y refrescar grupo en esta sesión
 sudo usermod -aG docker "$USER"
-echo "Para que los cambios de grupo tengan efecto, cierra sesión y vuelve a iniciarla o ejecuta: newgrp docker"
 newgrp docker
 
 # Instalar el plugin de Docker Compose
