@@ -17,22 +17,16 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
 1. **Descargar o clonar el repositorio**
 
    ```bash
-   git clone https://github.com/devalexcode/shell-docker-docker_compose-portainer.git
+   git clone https://github.com/devalexcode/shell-docker-docker_compose-portainer.git && cd shell-docker-docker_compose-portainer
    ```
 
-2. **Ingresar a la carperta del instalador**
-
-   ```bash
-   cd shell-docker-docker_compose-portainer
-   ```
-
-3. **Dar permisos de ejecución al script**
+2. **Dar permisos de ejecución al script**
 
    ```bash
    chmod +x install.sh
    ```
 
-4. **Ejecutar el script**
+3. **Ejecutar el script**
 
    ```bash
    ./install.sh
@@ -40,13 +34,13 @@ Este repositorio proporciona un script Bash (`install.sh`) para instalar y confi
 
    - El script actualizará el sistema, instalará Docker y sus herramientas, añadirá el usuario al grupo `docker` y desplegará Portainer.
 
-5. **Ingresar a Portainer**
+## Ingresar a Portainer
 
-   Al finalizar, verás un mensaje indicando la URL de acceso a Portainer:
+Al finalizar, verás un mensaje indicando la URL de acceso a Portainer:
 
-   ```bash
-   Portainer instalado y accesible en: http://<IP_DEL_SERVIDOR>:9000
-   ```
+```bash
+Portainer instalado y accesible en: http://<IP_DEL_SERVIDOR>:9000
+```
 
 ## Personalización
 
