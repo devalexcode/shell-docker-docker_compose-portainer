@@ -57,7 +57,7 @@ sudo docker run -d \
 
 sudo docker restart portainer
 
-echo "Portainer instalado y accesible en: http://$(hostname -I | awk '{print $1}'):9000"
+echo -e "${GREEN}Portainer instalado y accesible en: http://$(hostname -I | awk '{print $1}'):9000${NC}"
 
 # Mensaje final
 echo "¡Instalación completada! Comprueba con: docker --version, docker compose version y accede a Portainer en el navegador."
