@@ -44,20 +44,24 @@ else
   echo "Docker Compose ya está instalado: $(docker compose version)"
 fi
 
-# Instalar Portainer
-sudo docker volume create portainer_data
-sudo docker run -d \
-  --name portainer \
-  --restart=always \
-  -p 8000:8000 \
-  -p 9000:9000 \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v portainer_data:/data \
-  portainer/portainer-ce
+if sudo docker container inspect portainer >/dev/null 2>&1; then
+  echo "Portainer ya está instalado y configurado."
+else
+  # Instalar Portainer
+  sudo docker volume create portainer_data
+  sudo docker run -d \
+    --name portainer \
+    --restart=always \
+    -p 8000:8000 \
+    -p 9000:9000 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce
 
-sudo docker restart portainer
+  sudo docker restart portainer
 
-echo -e "${GREEN}Portainer instalado y accesible en: http://$(hostname -I | awk '{print $1}'):9000${NC}"
+  echo -e "${GREEN}Portainer instalado y accesible en: http://$(hostname -I | awk '{print $1}'):9000${NC}"
+fi
 
 # Mensaje final
 echo "¡Instalación completada! Comprueba con: docker --version, docker compose version y accede a Portainer en el navegador."
