@@ -60,7 +60,7 @@ else
 
   sudo docker restart portainer
 
-  echo -e "${GREEN}Portainer instalado y accesible en: http://$(hostname -I | awk '{print $1}'):9000${NC}"
+  echo -e "${GREEN}Portainer instalado y accesible en el puerto: 9000${NC}"
 fi
 
 # Mensaje final
