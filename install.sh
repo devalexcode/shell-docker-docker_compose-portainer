@@ -46,9 +46,7 @@ sudo apt install -y \
   ca-certificates \
   curl \
   gnupg \
-  lsb-release \
-  iproute2 \ # para 'ss'
-netcat-openbsd # para pruebas de conectividad externa
+  lsb-release
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Instalación de Docker (si no está instalado)
