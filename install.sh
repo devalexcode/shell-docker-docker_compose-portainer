@@ -9,15 +9,11 @@ NC='\033[0m' # No Color (reset)
 # Obtener IP pública (global)
 PUBLIC_IP=$(curl -s http://checkip.amazonaws.com || curl -s https://icanhazip.com)
 CHECK_APP_MAX_ATTEMPTS=5
-CHECK_APP_DELAY=3
-
-export PUBLIC_IP
-export CHECK_APP_MAX_ATTEMPTS
-export CHECK_APP_DELAY
+CHECK_APP_DELAY_SECONDS=3
 
 # Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
 # Recibe Puerto y Nombre de la Aplicación
-# Realiza hasta CHECK_APP_MAX_ATTEMPTS intentos con CHECK_APP_DELAY segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
+# Realiza hasta CHECK_APP_MAX_ATTEMPTS intentos con CHECK_APP_DELAY_SECONDS segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
 check_port_open() {
   local PORT=$1
   local APP_NAME=$2
@@ -27,7 +23,7 @@ check_port_open() {
 
     echo -e "Verificando acceso a ${APP_NAME} . . . "
 
-    sleep ${CHECK_APP_DELAY}
+    sleep ${CHECK_APP_DELAY_SECONDS}
     # Verificar respuesta del VPS
     if nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
       echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}${NC}"
