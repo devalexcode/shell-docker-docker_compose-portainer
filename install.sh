@@ -17,7 +17,7 @@ export CHECK_APP_DELAY
 
 # Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
 # Recibe Puerto y Nombre de la Aplicación
-# Realiza hasta 5 intentos con CHECK_APP_DELAY segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
+# Realiza hasta CHECK_APP_MAX_ATTEMPTS intentos con CHECK_APP_DELAY segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
 check_port_open() {
   local PORT=$1
   local APP_NAME=$2
