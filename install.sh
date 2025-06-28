@@ -17,12 +17,6 @@ check_port_open() {
   local PORT=$1
   local APP_NAME=$2
 
-  # Verificar escucha local
-  if ! ss -tulpn | grep -q ":${PORT} "; then
-    echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no está en disponible de manera local.${NC}"
-    exit 1
-  fi
-
   # Verificar accesibilidad externa
   if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
     echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor de VPS.${NC}"
