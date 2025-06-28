@@ -23,13 +23,8 @@ check_port_open() {
     exit 1
   fi
 
-  echo -e "${GREEN}Puerto ${PORT} para ${APP_NAME} escuchando localmente y accesible externamente en ${PUBLIC_IP}:${PORT}.${NC}"
+  echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}.${NC}"
 }
-
-# Nombre de la aplicación\ APP_NAME="Portainer"
-
-# Validar puertos antes de la instalación
-check_port_open 9000 "Portainer"
 
 # Actualizar repositorios y paquetes
 sudo apt update && sudo apt upgrade -y
@@ -92,10 +87,8 @@ else
   echo -e "${GREEN}Portainer instalado y contenedores iniciados.${NC}"
 fi
 
-# Validación post-instalación (asegurar que los puertos siguen accesibles)
-check_port_open 9000 "Portainer"
-
-echo -e "${GREEN}¡Instalación completada! Comprueba con: docker --version, docker compose version y accede a Portainer en http://${PUBLIC_IP}:9000${NC}"
-
 # Aplicar cambios de grupo sin necesidad de reiniciar sesión
 newgrp docker
+
+# Validación post-instalación (asegurar que los puertos accesibles)
+check_port_open 9000 "Portainer"
