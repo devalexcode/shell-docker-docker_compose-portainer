@@ -8,22 +8,37 @@ NC='\033[0m' # No Color (reset)
 
 # Obtener IP pública (global)
 PUBLIC_IP=$(curl -s http://checkip.amazonaws.com || curl -s https://icanhazip.com)
+CHECK_APP_MAX_ATTEMPTS=5
+CHECK_APP_DELAY=3
+
 export PUBLIC_IP
+export CHECK_APP_MAX_ATTEMPTS
+export CHECK_APP_DELAY
 
 # Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
 # Recibe Puerto y Nombre de la Aplicación
-# Si falla alguna comprobación, muestra mensaje de error y termina el script
+# Realiza hasta 5 intentos con 2s de delay. Si tras 5 fallos, muestra error y termina.
 check_port_open() {
   local PORT=$1
   local APP_NAME=$2
+  local attempt=1
 
-  # Verificar accesibilidad externa
-  if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
-    echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor de VPS.${NC}"
-    exit 1
-  fi
+  while ((attempt <= MAX_ATTEMPTS)); do
 
-  echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}.${NC}"
+    echo 'Verificando acceso a: ${APP_NAME} . . . '
+
+    sleep ${DELAY}
+    # Verificar respuesta del VPS
+    if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
+      echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}.${NC}"
+      return 0
+    fi
+    attempt=$((attempt + 1))
+  done
+
+  # Si llegamos aquí, todos los intentos fallaron
+  echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor de VPS.${NC}"
+  exit 1
 }
 
 # Actualizar repositorios y paquetes
@@ -87,8 +102,8 @@ else
   echo -e "${GREEN}Portainer instalado y contenedores iniciados.${NC}"
 fi
 
-# Aplicar cambios de grupo sin necesidad de reiniciar sesión
-newgrp docker
-
 # Validación post-instalación (asegurar que los puertos accesibles)
 check_port_open 9000 "Portainer"
+
+# Aplicar cambios de grupo sin necesidad de reiniciar sesión
+newgrp docker
