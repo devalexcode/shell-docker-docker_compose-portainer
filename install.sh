@@ -23,11 +23,11 @@ check_port_open() {
   local APP_NAME=$2
   local attempt=1
 
-  while ((attempt <= MAX_ATTEMPTS)); do
+  while ((attempt <= CHECK_APP_MAX_ATTEMPTS)); do
 
     echo 'Verificando acceso a: ${APP_NAME} . . . '
 
-    sleep ${DELAY}
+    sleep ${CHECK_APP_DELAY}
     # Verificar respuesta del VPS
     if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
       echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}.${NC}"
