@@ -6,6 +6,10 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color (reset)
 
+# Obtener IP pública (global)
+PUBLIC_IP=$(curl -s http://checkip.amazonaws.com || curl -s https://icanhazip.com)
+export PUBLIC_IP
+
 # Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
 # Recibe Puerto y Nombre de la Aplicación
 # Si falla alguna comprobación, muestra mensaje de error y termina el script
@@ -18,10 +22,6 @@ check_port_open() {
     echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no está en disponible de manera local.${NC}"
     exit 1
   fi
-
-  # Obtener IP pública (intenta diferentes servicios)
-  local PUBLIC_IP
-  PUBLIC_IP=$(curl -s http://checkip.amazonaws.com || curl -s https://icanhazip.com)
 
   # Verificar accesibilidad externa
   if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
@@ -101,7 +101,7 @@ fi
 # Validación post-instalación (asegurar que los puertos siguen accesibles)
 check_port_open 9000 "Portainer"
 
-echo -e "${GREEN}¡Instalación completada! Comprueba con: docker --version, docker compose version y accede a Portainer en http://<tu-host>:9000${NC}"
+echo -e "${GREEN}¡Instalación completada! Comprueba con: docker --version, docker compose version y accede a Portainer en http://${PUBLIC_IP}:9000${NC}"
 
 # Aplicar cambios de grupo sin necesidad de reiniciar sesión
 newgrp docker
