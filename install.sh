@@ -17,7 +17,7 @@ export CHECK_APP_DELAY
 
 # Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
 # Recibe Puerto y Nombre de la Aplicación
-# Realiza hasta 5 intentos con 2s de delay. Si tras 5 fallos, muestra error y termina.
+# Realiza hasta 5 intentos con CHECK_APP_DELAY segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
 check_port_open() {
   local PORT=$1
   local APP_NAME=$2
@@ -25,12 +25,12 @@ check_port_open() {
 
   while ((attempt <= CHECK_APP_MAX_ATTEMPTS)); do
 
-    echo 'Verificando acceso a: ${APP_NAME} . . . '
+    echo -e "Verificando acceso a ${APP_NAME} . . . "
 
     sleep ${CHECK_APP_DELAY}
     # Verificar respuesta del VPS
-    if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
-      echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}.${NC}"
+    if nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
+      echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}${NC}"
       return 0
     fi
     attempt=$((attempt + 1))
