@@ -34,7 +34,6 @@ check_port_open() {
 
   # Si llegamos aquí, todos los intentos fallaron
   echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor de VPS.${NC}"
-  exit 1
 }
 
 # Actualizar repositorios y paquetes
