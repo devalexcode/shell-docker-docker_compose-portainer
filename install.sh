@@ -25,7 +25,7 @@ check_port_open() {
 
   # Verificar accesibilidad externa
   if ! nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
-    echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor VPS.${NC}"
+    echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada de tu proveedor de VPS.${NC}"
     exit 1
   fi
 
