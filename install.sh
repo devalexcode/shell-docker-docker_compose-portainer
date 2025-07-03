@@ -41,7 +41,7 @@ check_port_open() {
 }
 
 # Actualizar repositorios y paquetes
-sudo apt update && sudo apt upgrade -y
+sudo apt update
 
 # Instalar prerequisitos
 sudo apt install -y \
