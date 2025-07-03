@@ -12,33 +12,6 @@ NC='\033[0m' # No Color (reset)
 
 # Obtener IP pública (global)
 PUBLIC_IP=$(curl -s http://checkip.amazonaws.com || curl -s https://icanhazip.com)
-CHECK_APP_MAX_ATTEMPTS=5
-CHECK_APP_DELAY_SECONDS=3
-
-# Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
-# Recibe Puerto y Nombre de la Aplicación
-# Realiza hasta CHECK_APP_MAX_ATTEMPTS intentos con CHECK_APP_DELAY_SECONDS segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
-check_port_open() {
-  local PORT=$1
-  local APP_NAME=$2
-  local attempt=1
-
-  while ((attempt <= CHECK_APP_MAX_ATTEMPTS)); do
-
-    echo -e "Verificando acceso a ${APP_NAME} . . . "
-
-    sleep ${CHECK_APP_DELAY_SECONDS}
-    # Verificar respuesta del VPS
-    if nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
-      echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}${NC}"
-      return 0
-    fi
-    attempt=$((attempt + 1))
-  done
-
-  # Si llegamos aquí, todos los intentos fallaron
-  echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada / firewall de tu servidor VPS.${NC}"
-}
 
 # Actualizar repositorios y paquetes
 sudo apt update
@@ -100,6 +73,34 @@ else
   sudo docker restart portainer
   echo -e "${GREEN}Portainer instalado y contenedores iniciados.${NC}"
 fi
+
+CHECK_APP_MAX_ATTEMPTS=5
+CHECK_APP_DELAY_SECONDS=3
+
+# Función para validar que un puerto esté en escucha local y accesible externamente para una aplicación
+# Recibe Puerto y Nombre de la Aplicación
+# Realiza hasta CHECK_APP_MAX_ATTEMPTS intentos con CHECK_APP_DELAY_SECONDS segundos de delay. Si tras CHECK_APP_MAX_ATTEMPTS fallos, muestra error y termina.
+check_port_open() {
+  local PORT=$1
+  local APP_NAME=$2
+  local attempt=1
+
+  while ((attempt <= CHECK_APP_MAX_ATTEMPTS)); do
+
+    echo -e "Verificando acceso a ${APP_NAME} . . . "
+
+    sleep ${CHECK_APP_DELAY_SECONDS}
+    # Verificar respuesta del VPS
+    if nc -z -w5 "${PUBLIC_IP}" "${PORT}"; then
+      echo -e "${GREEN}¡Instalación completada! ${APP_NAME} funcionando y accesible: http://${PUBLIC_IP}:${PORT}${NC}"
+      return 0
+    fi
+    attempt=$((attempt + 1))
+  done
+
+  # Si llegamos aquí, todos los intentos fallaron
+  echo -e "${RED}Error: El puerto ${PORT} para ${APP_NAME} no es accesible externamente en ${PUBLIC_IP}:${PORT}. Verifica las reglas de entrada / firewall de tu servidor VPS.${NC}"
+}
 
 # Validación post-instalación (asegurar que los puertos accesibles)
 check_port_open 9000 "Portainer"
